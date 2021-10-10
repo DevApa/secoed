@@ -1,0 +1,27 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block css%}
+    {% include 'partials/css.html' %}
+{% endblock %}
+{% block contents %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{% block action %}{% endblock %}" method="POST">
+                    {% csrf_token %}
+                    {% block form %}
+
+                    {% endblock %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block r_sidebar %}
+    {% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+    {% include 'partials/footer.html' %}
+{% endblock %}

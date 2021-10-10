@@ -1,0 +1,26 @@
+#criterio{
+    margin: 30px;
+    background-color : burlywood;
+    color: black;
+    border-width: 1px;
+    border-style : solid;
+    border-color:black;
+}
+
+#datos th{
+    background-color : burlywood;
+    border-color: black;
+}
+
+#cabecera th{
+    background-color : rgb(120, 211, 247);
+    border-color: black;
+}
+
+
+
+img{
+    border-width: 1px;
+    border-style : solid;
+    border-color:black;
+}

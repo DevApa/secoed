@@ -1,0 +1,36 @@
+{% extends 'parciales/list.html' %}
+
+{% block btn_creacion %}
+    <div class="mb-2">
+        <button class="rounded-circle btn btn-outline-info" new-register type="button" onclick="openModal('{% url 'eva:create-parameter-grl' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+{% endblock %}
+
+<!--Columnas de la tabla-->
+{% block cols %}
+    <th>N°</th>
+    <th>Código</th>
+    <th>Valor</th>
+    <th>Acción</th>
+{% endblock %}
+<!--Filas de tabla-->
+{% block filas %}
+    {% for item in object_list %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.code }}</td>
+            <td>{{ item.value }}</td>
+            <td>
+                <button onclick="openModal('{% url 'eva:update-parameter-grl' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button onclick="confirmDelete('{% url 'eva:delete-parameter-grl' item.pk %}')" class="rounded-circle btn btn-outline-danger btn-sm trash" title="Borrar">
+                    <i class="fas fa-trash"></i>
+                </button>
+                {% csrf_token %}
+            </td>
+        </tr>
+    {% endfor %}
+ {% endblock %}

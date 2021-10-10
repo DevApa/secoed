@@ -1,0 +1,84 @@
+{% load static %}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="close">Transformar a PDF: {{N}}</h2>            
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                        
+        </div>       
+        <div class="modal-body">
+            <div class="table-responsive">                          
+                <table id="prueba" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>                       
+                        <tr>                                                       
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Observaciones</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>                            
+                    {% if uni_nombre %}
+                        {% for uni_nombres in uni_nombre %}                            
+                            <tr>                                                                   
+                                <td>{{uni_nombres.id_ob}}</td>                                        
+                                <td>{{uni_nombres.Nombre_Cabecera}}</td>                                        
+                                <td>{{uni_nombres.Observaciones}}</td>                                                                                                          
+                            </tr>     
+                        {% endfor %}
+                    {% else %}                           
+
+                        <div class="row">
+                            <div class="alert alert-warning alert-dismissible fade show col-md-5 col-md-offset-4" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                <strong>Advertencia!</strong> Búsqueda Fallida, dato no encontrado.
+                            </div>
+                        </div> 
+                        
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>               
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>                    
+        </div>                            
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#prueba').DataTable( {
+        dom: 'B',
+        buttons: [  
+            {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                messageTop: 'Universidad De Guayaquil - Ingieneria en Sistemas Computacionales',                                                        
+                messageBottom: new Date(),                                                           
+            },                        
+            {                  
+                extend: 'pdfHtml5',
+                customize: function ( doc ) {                              
+                    doc['footer']=function(currentPage, pageCount){return [{text:'Página' + currentPage.toString() + ' de ' + pageCount, alignment:'center'}];}
+                    var f= new Date();                            
+                    var time=f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear()                                               
+                    var cols = [];                            
+                    cols[1] = {text: time, alignment: 'right', margin:[0,10,20,0] };
+                    var objheader = {};
+                    objheader['columns'] = cols;
+                    doc['header']=objheader;                               
+                    doc.content.splice( 1, 0, {
+                        margin: [ 0, 0, 0, 12 ],
+                        alignment: 'center',
+                        width: 80,height: 80,
+                        image: 'data:image/png;base64,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" alt=""'
+                        },
+                        { text: 'Universidad De Guayaquil',alignment: 'center', margin:[0,0,0,30], fontSize: 12 },
+                        { text: 'Ingieneria en Sistemas Computacionales',alignment: 'center', margin:[0,0,0,30], fontSize: 12 },                            
+                    );                            
+                }                            
+            }
+        ]
+    } );
+} );     
+</script>

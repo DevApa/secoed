@@ -1,0 +1,22 @@
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">{{ title }}</h2>
+      </div>
+
+       <form id="{% block id_form %}{% endblock %}" action="{% block action %}{% endblock %}" method="POST">
+            <input type="hidden" name="option" value="false">
+            <input type="hidden" name="action" value="{{ action }}">
+          {% csrf_token %}
+          <div id="{% block id_error %}{% endblock %}"></div>
+          <div class="modal-body">
+            {{ form.as_p }}
+          </div>
+          <div class="modal-footer">
+            {% block btn %}
+
+            {% endblock %}
+          </div>
+        </form>
+    </div>
+</div>

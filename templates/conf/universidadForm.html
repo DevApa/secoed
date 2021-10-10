@@ -1,0 +1,32 @@
+{% load crispy_forms_tags %}
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                {% if universidad.id %}
+                    Universidad: {{ universidad.descripcion }}
+                {% else %}
+                    Crear Universidad
+                {% endif %}
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"/>
+        </div>
+        <form method="POST" id="form"
+              action="{% if universidad.id %} editUniversidad/{{ universidad.id }}{% else %}newUniversidad{% endif %}">
+            {% csrf_token %}
+            <div class="modal-body">
+                {{ universidadFormView|crispy }}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" {% if view %}disabled{% endif %}>
+                    <i class="mdi mdi-content-save"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <i class="mdi mdi-close"></i>
+                    Cerrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

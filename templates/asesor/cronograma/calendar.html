@@ -1,0 +1,62 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+<link href="{% static 'css/calos.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block contents %}
+<div style="background-color:white;">
+    <main>
+        <div class="container">
+            <div class="container-fluid">
+                <div class="clearfix" >      
+                    <br>                    
+                    <h3>Nombre del Cronograma: {{P}}</h3> <br>                        
+                    <a class="btn btn-info right mr-1" href="{% url 'nextM' P seg %}"> Mes Siguiente  >> </a>
+                    <a class="btn btn-info left mr-1" href="{% url 'nextM' P ant %}"> << Mes Anterior </a>                          
+                </div>
+                <div >
+                    {{ calendar }}                    
+                </div>                                             
+            </div>
+        </div>
+    </main>   
+</div>
+                                
+<!-- End Page-content -->             
+<div class="modal fade" id="edicion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+
+{% endblock %}
+{% block javascript %}                
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>                
+
+        <script src="{% static 'js/app.js' %}"></script>           
+        <script type="text/javascript">
+            var $ = jQuery.noConflict();
+            function abrir_Uni_edi(url){
+                $('#edicion').load(url, function (){
+                    $(this).modal('show')
+                });
+            }
+            function abrir_Uni_crea(url){
+                $('#creacion').load(url, function (){
+                    $(this).modal('show')
+                });
+            }
+        </script>            
+{% endblock %}

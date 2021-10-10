@@ -1,0 +1,212 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+
+{% endblock %}
+{% block contents %}
+
+<!-- <div class="row">
+    <div class="col-lg-6">
+        <div class="mb-4">
+            <label for="formrow-inputState" class="form-label">Curso</label>
+            <select id="formrow-inputState" class="form-select"> -->
+                <!-- {% for ases in asesor %} -->
+                <!-- <option selected>{{ases.nombres}} {{ases.apellidos}}</option> -->
+                <!-- <option></option> -->
+                <!-- {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">    
+<div class="col-xl-4">
+    <div class="card">
+        <div class="card-body"> -->
+            <!-- <h4 class="card-title mb-4">Curso {{curso.tipo}}</h4> -->
+
+            <!-- <div>
+                <div id="donut-chart" class="apex-charts"></div>
+            </div>
+
+            <div class="text-center text-muted">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="mt-4">
+                            <p class="mb-2 text-truncate"><i
+                                    class="mdi mdi-circle text-primary me-1"></i>Completado</p>
+                            <h5>70%</h5>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mt-4">
+                            <p class="mb-2 text-truncate"><i
+                                    class="mdi mdi-circle text-success me-1"></i>No completado</p>
+                            <h5>30%</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="clearfix">
+                    <div class="float-end">
+                        <div class="input-group input-group-sm">
+                            <select class="form-select form-select-sm">
+                                <option value="JA" selected>Jan</option>
+                                <option value="DE">Dec</option>
+                                <option value="NO">Nov</option>
+                                <option value="OC">Oct</option>
+                            </select>
+                            <label class="input-group-text">Month</label>
+                        </div>
+                    </div>
+                    <h4 class="card-title mb-4">Actividades</h4>
+                </div>
+
+                <div class="text-muted text-center"> -->
+                    <!-- <p class="mb-2">Curso {{curso.tipo}}</p> -->
+                    <!-- <h4>3 Actividades</h4>
+                    <p class="mt-4 mb-0"><span class="badge badge-soft-success font-size-11 me-2"> -- <i
+                                class="mdi mdi-arrow-up"></i> </span> From previous period</p>
+                </div>
+
+                <div class="table-responsive mt-4">
+                    <table class="table align-middle mb-0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h5 class="font-size-14 mb-1">Lecciones</h5>
+                                    <p class="text-muted mb-0">Neque quis est</p>
+                                </td>
+
+                                <td>
+                                    <div id="radialchart-1" class="apex-charts"></div>
+                                </td>
+                                <td>
+                                    <p class="text-muted mb-1">Realizado</p>
+                                    <h5 class="mb-0">37 %</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5 class="font-size-14 mb-1">Trabajo en Clases</h5>
+                                    <p class="text-muted mb-0">Quis autem iure</p>
+                                </td>
+
+                                <td>
+                                    <div id="radialchart-2" class="apex-charts"></div>
+                                </td>
+                                <td>
+                                    <p class="text-muted mb-1">Realizado</p>
+                                    <h5 class="mb-0">72 %</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5 class="font-size-14 mb-1">Examen</h5>
+                                    <p class="text-muted mb-0">Sed aliquam mauris.</p>
+                                </td>
+
+                                <td>
+                                    <div id="radialchart-3" class="apex-charts"></div>
+                                </td>
+                                <td>
+                                    <p class="text-muted mb-1">No realizado</p>
+                                    <h5 class="mb-0">54 %</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+
+
+
+
+            
+
+                <!-- <h4 class="card-title">Table Edits</h4>
+                <p class="card-title-desc">Table Edits is a lightweight jQuery plugin for making table rows editable.</p> -->
+
+                <div class="table-responsive">
+
+
+                        <table class="table table-primary dt-responsive table-nowrap align-middle"
+                        style="text-align: center" id = "datatable">
+                            <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Curso</th>
+                                        <th>Docentes</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tb">  
+                                    {% for asesor in cursos %}        
+                                    <form method="GET" action=" {% url 'listadoAsesores' %}" >
+                                        {% csrf_token %}             
+                                        <tr> 
+                                            <th><input type="hidden" name = "id" value= {{asesor.id}}>{{asesor.id}}</th>
+                                            <th><input  type="hidden" name = "curso" value="{{asesor.fullname}}">{{asesor.fullname}}</th>
+                                            <th><input type="submit" class="btn btn-danger" value="Listado de Docentes"></th>                                                                                
+                                        </tr> 
+                                    </form>    
+                                           
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    
+                        
+                    
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+        
+    </div>
+
+
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock %}
+{% block javascript %}
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js'%}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+        <script src="{% static 'libs/metismenu/metisMenu.min.js'%}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js'%}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js'%}"></script>
+
+        <!-- apexcharts -->
+        <script src="{% static 'libs/apexcharts/apexcharts.min.js'%}"></script>
+        
+        <!-- Saas dashboard init -->
+        <script src="{% static 'js/pages/saas-dashboard.init.js'%}"></script>
+
+        <script src="{% static 'js/app.js'%}"></script>
+{% endblock %}

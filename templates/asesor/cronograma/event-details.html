@@ -1,0 +1,23 @@
+{% load static %}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="card-title">Detalles Evento</h4>            
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                              
+        </div>            
+        <div class="modal-body">
+            <div class="clearfix">
+                <h3>Nombre del Evento: {{ event.title }}</h3>
+                <p>De <span style="color: gray;">{{ event.start_time }}</span> hasta <span style="color: gray;">{{ event.end_time }}</span></p>
+                <hr>
+                <p>{{ event.description }}</p>
+            </div>             
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>                                    
+        </div>                          
+    </div>
+</div>
+
+
+   

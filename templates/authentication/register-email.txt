@@ -1,0 +1,15 @@
+{% autoescape off %}
+
+Bienvenido {{apellidos}} {{nombres}},
+
+Ahora eres parte de la comunidad del "Sistema de Evaluación y Coevaluación Docente", a continuacion encontraras las creedenciales
+para el acesso a la plataforma digital:
+
+
+Su usuario es : {{username}}
+Tu contraseña es : {{password}}
+
+
+Nota: Se recomienda modificar su contraseña previamente al utilizar la plataforma SECOED
+
+{% endautoescape %}

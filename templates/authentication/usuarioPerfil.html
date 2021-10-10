@@ -1,0 +1,164 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block css %}
+    {% include 'partials/css.html' %}
+{% endblock %}
+
+{% block contents %}
+    <div class="row">
+        <div class="col-xl-5">
+            <div class="card overflow-hidden">
+                <div class="bg-primary bg-soft">
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="text-primary p-3">
+                                <h5 class="text-primary">Bienvenido!!</h5>
+                            </div>
+                        </div>
+                        <div class="col-5 align-self-end">
+                            <img src="{% static 'images/profile-img.png' %}" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="avatar-md profile-user-wid mb-4">
+                                {% if user.imagen %}
+                                    <img src="{% get_media_prefix %}{{ user.imagen }}" alt=""
+                                         class="img-thumbnail rounded-circle">
+                                {% endif %}
+                            </div>
+                            <h5 class="font-size-15 text-truncate">{{ user.apellidos }}</h5>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="pt-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                    </div>
+                                    <div class="col-6">
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    {% if user.usuario_administrador == False %}
+                                        <button type="button"
+                                                onclick="openModal('{% url 'editUsuarioPerfil' user.id %}','#editModal')"
+                                                class="btn btn-primary waves-effect waves-light btn-sm"
+                                                data-bs-toggle="modal">
+                                            <i class="mdi mdi-plus-circle font-size-16 align-middle me-2"></i>
+                                            Editar perfil
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end card -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-nowrap mb-0">
+                            <tbody>
+                            <tr>
+                                <th scope="row">Identificación:</th>
+                                <td>{{ user.identificacion }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nombres:</th>
+                                <td>{{ user.nombres }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Apellidos:</th>
+                                <td>{{ user.apellidos }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">E-mail :</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Dirección :</th>
+                                <td>{{ user.direccion }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Teléfono :</th>
+                                <td>{{ user.telefono }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- end card -->
+        </div>
+        <div class="col-xl-7">
+            <div class="card">
+                <div class="card-body">
+                    <div id="activity-user" class="activity-user" dir="ltr">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- editModal -->
+    <div class="modal fade" id="editModal" role="dialog">
+    </div>
+    <!-- endEditModal -->
+
+{% endblock %}
+
+{% block r_sidebar %}
+    {% include 'partials/rightsidebar.html' %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'partials/footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+    <!-- apexcharts -->
+    <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+
+    <!-- apexcharts init -->
+    <script src="{% static 'js/pages/activityUser.init.js' %}"></script>
+
+    <!-- Modal View -->
+    <script type="text/javascript">
+        var $ = jQuery.noConflict();
+
+        function openModal(url, idModal) {
+            $(idModal).load(url, function () {
+                $(this).modal('show')
+            });
+        }
+    </script>
+
+    <!--SWEET-ALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- message success-->
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                    "title": "PERFIL",
+                    "text": "{{m}}",
+                    "icon": "{{m.extra_tags}}",
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

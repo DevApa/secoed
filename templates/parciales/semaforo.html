@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-header bg-transparent border-bottom" style="text-align: center">
+        <h4>Usted se encuentra en semáforo</h4>
+    </div>
+    <div class="card-body" style="margin: 2em auto">
+        {% if result.Total_Proceso_Auto >= 86 %}
+            <img src="{% static 'images/eva/semaforo_verde.png' %}" alt="">
+        {% elif result.Total_Proceso_Auto >= 61 and result.Total_Proceso_Auto <= 85 %}
+            <img src="{% static 'images/eva/semaforo_amarillo.png' %}" alt="">
+        {% else %}
+            <img src="{% static 'images/eva/semaforo_rojo.png' %}" alt="">
+        {% endif %}
+    </div>
+    <div class="card-footer bg-transparent border-top text-muted">
+
+    </div>
+</div>

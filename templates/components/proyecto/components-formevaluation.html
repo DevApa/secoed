@@ -1,0 +1,94 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+
+{% endblock %}
+{% block contents %}
+<div class="container custom">
+    <form class="repeater" enctype="multipart/form-data" action="{% url 'getPDF' %}" method="POST">
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Cursos</label>
+            <select name="course" class="form-control" id="exampleFormControlSelect1">
+                {%for course in courses%}
+                    <option>{{course}}</option>
+                {%endfor%}
+            </select>
+          </div>
+        <div id="questions">
+            <div class="my-form__main-question">
+                <div class="my-form__question">
+                    <label for="name" class="label-question">Pregunta: </label>
+                    <input type="text" name="question[]" class="form-control input-question" />
+                </div>
+
+                <div class="my-form__choice">
+                    <input type="text" name="choice[]" class="form-control" placeholder="Elección 1" />
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="is_correct[]" value="0"
+                            id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            Respuesta correcta
+                        </label>
+                    </div>
+                    <input type="text" name="choice[]" class="form-control" placeholder="Elección 2" />
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="is_correct[]" value="1"
+                            id="defaultCheck2">
+                        <label class="form-check-label" for="defaultCheck2">
+                            Respuesta correcta
+                        </label>
+                    </div>
+                    <input type="text" name="choice[]" class="form-control" placeholder="Elección 3" />
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="is_correct[]" value="2"
+                            id="defaultCheck3">
+                        <label class="form-check-label" for="defaultCheck3">
+                            Respuesta correcta
+                        </label>
+                    </div>
+                    <input type="text" name="choice[]" class="form-control" placeholder="Elección 4" />
+                    <div class="form-check">
+                        <input class="form-check-input" name="is_correct[]" type="checkbox" value="3"
+                            id="defaultCheck4">
+                        <label class="form-check-label" for="defaultCheck4">
+                            Respuesta correcta
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input data-repeater-create type="button" id="add-question" class="btn btn-info add_button"
+            value="Add Question" />
+        <input type="submit" class="btn btn-success submit_button" value="Submit Evaluation" />
+    </form>
+</div>
+
+
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock %}
+{% block javascript %}
+<!-- JAVASCRIPT -->
+<script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+<script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+<script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+<!-- form repeater js -->
+<script src="{% static 'libs/jquery.repeater/jquery.repeater.min.js' %}"></script>
+
+<script src="{% static 'js/pages/form-repeater.int.js' %}"></script>
+
+<script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/evaluation/evaluation.js' %}"></script>
+{% endblock %}

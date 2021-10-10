@@ -1,0 +1,28 @@
+{% load widget_tweaks %}
+{% load static %}
+<link href="{% static 'css/crono.css' %}"   rel='stylesheet' >
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="close">Edición: {{N}}</h2>
+            <h2 class="close">Nombre: {{h}}</h2>        
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>            
+        </div>
+        <form class='form_crono' action="{% url 'modificar_producto_Cu' id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="col-12 col-md-8 offset-md-3">          
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Curso:</label><div class="col-md-5">{% render_field form.Tipo class="form-control" type="text" %}</div></div>
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Estado: </label><div class="col-md-5">{% render_field form.Estado class="form-control" type="text" %}</div></div>                    
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Fecha de Apertura: </label><div class="col-md-6">{% render_field form.Fecha_de_Apertura class="form-control" type="text" %}</div></div>
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Fecha Fin: </label><div class="col-md-6">{% render_field form.Fecha_fin class="form-control" type="text" %}</div></div>                    
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Carrera: </label><div class="col-md-5">{% render_field form.Carrera class="form-control" type="text" %}</div></div>                                  
+                </div>               
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>        
+                <button class="btn btn-primary" type="submit">Confirmar</button>
+            </div>
+        </form>                     
+    </div>
+</div>

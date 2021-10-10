@@ -1,0 +1,21 @@
+{% load static %}
+{% block footer %}
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <script>document.write(new Date().getFullYear())</script>
+                    ©SECOED
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                    <span class="logo-sm">
+                        <img src="{% static 'images/secoed/logo-secoed.png' %}" alt="" height="22"/>
+                    </span>
+                        Sistema de Evaluación y Coevaluación Docente
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

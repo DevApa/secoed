@@ -1,0 +1,181 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block css %}
+    {% include 'partials/css.html' %}
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block contents %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title" style="margin: 10px; text-align: center;font-size: 3rem">MANTENIMIENTO DE
+                        CATEGORIAS</h1>
+                    <div class="tab-pane" id="profile-1" role="tabpanel">
+                        {#Boton que acciona el modal categorias#}
+                        <button style="margin: 10px;" type="button" class="btn btn-primary waves-effect waves-light"
+                                onclick="limpiarCamposCategoria()"
+                                data-bs-toggle="modal" data-bs-target="#modal-categoria">Crear Nueva Categoria
+                        </button>
+                        <div class="table-responsive">
+                            <table class="table table-bordered dt-responsive nowrap w-100" id="datatable-buttons">
+                                <thead class="table-light">
+                                <tr>
+                                    <th scope="col" style="width: 70px;">#</th>
+                                    <th scope="col">Categoria Principal</th>
+                                    <th scope="col">Nombre Categoria</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if context %}
+                                    {% for item in context %}
+                                        <tr>
+                                            <td>{{ item.id }}</td>
+                                            <td>{{ item.path }}</td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.description |striptags }}</td>
+                                            <td style="align-items: center; text-align: center">
+                                                <button title="Visualizar" type="button"
+                                                        onclick="visualizarCategoria({{ item }})"
+                                                        class="btn btn-success waves-effect waves-light"
+                                                        data-bs-target="#modal-categoria"
+                                                        data-bs-toggle="modal">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button title="Editar" type="button"
+                                                        onclick="editarCategoria({{ item }})"
+                                                        class="btn btn-warning waves-effect waves-light"
+                                                        data-bs-target="#modal-categoria"
+                                                        data-bs-toggle="modal">
+                                                    <i class="bx bx-pencil"></i>
+                                                </button>
+                                                <button title="Eliminar" type="button"
+                                                        onclick="eliminarCategoria({{ item }})"
+                                                        class="btn btn-danger waves-effect waves-light">
+                                                    <i class="bx bx-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#Modal categorias#}
+    <div class="modal fade" id="modal-categoria" data-bs-backdrop="static"
+         data-bs-keyboard="false" tabindex="-1" role="dialog"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Nueva Categoria</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="createEditCategoria" method="post">{% csrf_token %}
+                        <div class="col-md-6" id="divCategoria">
+                            <div class="mb-3">
+                                <label for="id"
+                                       class="form-label">id</label>
+                                <input type="text" class="form-control" name="id"
+                                       id="idCategoria">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="depth" class="form-label">Categoria
+                                Padre</label>
+                            <select id="menuPadre" class="form-select" name="depth">
+                                <option value="0">Raiz</option>
+                                {% if context %}
+                                    {% for item in context %}
+                                        <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name"
+                                           class="form-label">Nombre de la Categoria</label>
+                                    <input type="text" class="form-control"
+                                           id="nombreCategoria" name="name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Descripción</label>
+                                    <input type="text" class="form-control" name="description"
+                                           id="descripcionCategoria">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" id="botonesCategoria">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar
+                            </button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block r_sidebar %}
+    {% include 'partials/rightsidebar.html' %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'partials/footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+    <!-- CURSOS -->
+    <script src="{% static 'js/cursos/cursos.js' %}"></script>
+
+    <!-- Required datatable js -->
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+     <!-- Datatable init js -->
+    <script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+    <!--SWEET-ALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="{% static 'js/app.js' %}"></script>
+{% endblock %}
+

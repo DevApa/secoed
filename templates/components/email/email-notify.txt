@@ -1,0 +1,13 @@
+{% autoescape off %}
+
+End course notification.
+Congratulation for finish the course {{courseName}}, so now you have a take a final evaluation
+Success on your final evaluation :D.
+
+Sincerely,
+The Skote Team
+
+
+
+
+{% endautoescape %}

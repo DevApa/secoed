@@ -1,0 +1,87 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+
+{% endblock %}
+{% block contents %}
+
+
+
+
+<div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="card-title">Tabla asignar asesor a curso</h4>
+                    <!-- <p class="card-title-desc">Table Edits is a lightweight jQuery plugin for making table rows editable.</p> -->
+                    <div class = "autocomplete ">
+                        Search:
+                        <input type="text" autofocus = "true" placeholder = "Curso" id = "autocomplete-input"/>
+                        <ul id = "autocomplete-results" class = "autocomplete-results">
+                            
+                        </ul>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-primary dt-responsive table-nowrap align-middle"
+                           style="text-align: center" id = "datatable" >
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Curso</th>
+                                    <th>Buscar asesor a asignar</th>
+                                    <th>Asignar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tb">
+
+                            </tbody>
+                            </table>
+                    </div>
+
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
+
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock %}
+{% block javascript %}
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+        <!--tinymce js-->
+        <script src="{% static 'libs/tinymce/tinymce.min.js' %}"></script>
+
+        <!-- init js -->
+        <script src="{% static 'js/pages/form-editor.init.js' %}"></script>
+
+        <script src="{% static 'js/app.js' %}"></script>
+        <script src="{% static 'js/education/second.js' %}"></script>
+        <script src="{% static 'js/education/first.js' %}"></script>
+
+        
+        <!-- Required datatable js -->
+        <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+
+
+
+
+{% endblock %}
+

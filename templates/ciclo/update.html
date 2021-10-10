@@ -1,0 +1,8 @@
+{% extends 'parciales/form_modal.html' %}
+{% block action %}{% url 'eva:update-cycle' object.id %}{% endblock %}
+{% block id_error %}error_update{% endblock %}
+{% block id_form %}form_update{% endblock %}
+{% block btn %}
+    <button id="btn_cancel_update" class="btn btn-danger" type="button" onclick="closeModal();">Cancelar</button>
+    <button id="btn_update" class="btn btn-primary" type="button" onclick="ajaxRequest('form_update', 'error_update', 'btn_update');">Confirmar</button>
+{% endblock %}

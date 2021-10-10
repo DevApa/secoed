@@ -1,0 +1,12 @@
+{% autoescape off %}
+
+Hola {{c_name}} {{c_last_name}},
+
+El Sistema de Evaluación y Coevaluación Docente, cumple con informar que:
+
+El docente {{apellidos}} {{nombres}}, ha sido matriculado de manera automática en el curso {{ course }}
+
+
+Nota: Favor no responda este correo.
+
+{% endautoescape %}

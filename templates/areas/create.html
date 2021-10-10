@@ -1,0 +1,8 @@
+{% extends 'parciales/form_modal.html' %}
+{% block action %}{% url 'eva:create-area' %}{% endblock %}
+{% block id_error %}error_create{% endblock %}
+{% block id_form %}form_create{% endblock %}
+{% block btn %}
+    <button id="btn_cancel_create" class="btn btn-danger" type="button" onclick="closeModal('createModal');">Cancelar</button>
+    <button id="btn_create" class="btn btn-primary" type="button" onclick="ajaxRequest('form_create', 'error_create', 'btn_create');">Confirmar</button>
+{% endblock %}

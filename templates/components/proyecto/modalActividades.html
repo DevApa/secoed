@@ -1,0 +1,100 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+    <link rel=StyleSheet HREF="{% static 'css/components/semaforo.css'%}"TYPE="text/css" MEDIA=screen>
+{% endblock %}
+{% block contents %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                        <table class="table table-primary dt-responsive table-nowrap align-middle"
+                        style="text-align: center" id = "datatable">
+                                <thead class="table-light">
+                                    <tr id = "cabecera">
+                                        <th>ID</th>
+                                        <th>Activividad</th>
+                                        <th>Nota de Estudiante</th>
+                                        <th>Valor de Nota</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tb">
+                                    {% if context %}
+                                    {% for act in context %}                                                        
+                                        <tr id = "datos">                                             
+                                            <th><input type="hidden" name = "id">{{act.id}}</th>
+                                            <th><input  type="hidden" name = "actividad">{{act.itemname}}</th>
+                                            <th><input  type="hidden" name = "nota">{{act.graderaw}}</th> 
+                                            <th><input  type="hidden" name = "nota">{{act.grademax}}</th>
+                                        </tr> 
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr> 
+                                        <th><input type="hidden" name = "id"></th>
+                                        <th><input  type="hidden" name = "curso">No hay actividades</th> 
+                                        <th><input type="hidden" name = "id"></th>     
+                                        <th><input type="hidden" name = "id"></th>                                                                    
+                                    </tr> 
+                                    {% endif %}
+                                    
+
+                                </tbody>
+                            </table>
+                    
+                        
+                    
+                </div>
+
+            </div>
+
+
+<!-- Hasta aqui es lo primero -->
+
+<div class="container">
+    <div class="row">     
+        {% if semaforo %}
+            <div class = "col col-lg-6">
+                {% for sem in semaforo %}
+                    <div class = "row justify-content-md-center" id = "criterio" >{{sem.criterio}}</div>                
+                {% endfor %}  
+            </div>
+            <div class = "col col-lg-6">
+                <img src="{% get_static_prefix %}images/components/semaforo{{semaforo.0.semaforo}}.jpg" alt="" width = "350"  height = "320">
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock %}
+{% block javascript %}
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js'%}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+        <script src="{% static 'libs/metismenu/metisMenu.min.js'%}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js'%}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js'%}"></script>
+
+        <!-- apexcharts -->
+        <script src="{% static 'libs/apexcharts/apexcharts.min.js'%}"></script>
+        
+        <!-- Saas dashboard init -->
+        <script src="{% static 'js/pages/saas-dashboard.init.js'%}"></script>
+
+        <script src="{% static 'js/app.js'%}"></script>
+{% endblock %}
+

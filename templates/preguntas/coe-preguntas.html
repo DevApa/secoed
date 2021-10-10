@@ -1,0 +1,19 @@
+{% extends 'parciales/questions.html' %}
+{% block preguntas_opciones %}
+    {% for category in categories %}
+        <tr class="table-info">
+            <td class="titulos" style="text-align: center" colspan="2">
+                <h5>{{ category.name|upper }}</h5>
+            </td>
+        </tr>
+        {% for question in questions %}
+            {% ifequal question.category_id category.id %}
+                <tr>
+                    <td style="max-width: 100%" >
+                        {{ question.title }}
+                    </td>
+                </tr>
+            {% endifequal %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

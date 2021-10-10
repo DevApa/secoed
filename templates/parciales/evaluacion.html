@@ -1,0 +1,115 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+        <link href="{% static 'libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'libs/admin-resources/rwd-table/rwd-table.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block contents %}
+
+{% if cycle.is_active %}
+    {% if verification %}
+        <div class="card">
+            <header class="title">
+                <div class="col-title" style="text-align: center">
+                    <h1>{{ type_evaluation }}</h1>
+                    <h4>Ciclo: {{ cycle }}</h4>
+                </div>
+            </header>
+            <div class="card-body">
+                <input type="hidden" name="action" value="add" />
+                <div id="{% block id_error %}{% endblock %}"></div>
+                <form id="form_evaluacion" action="{%block action %}{% endblock %}"  method="POST">
+                    {% csrf_token %}
+                    <section class="intro first">
+                        <p>Buenos días,</p>
+                        <p>Por favor, dedique unos minutos de su tiempo para rellenar el siguiente cuestionario.</p>
+                    </section>
+                    <section class="intro first">
+                        <H2 style="text-align: center">Tabla de Valoración</H2>
+                    </section>
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings table-success">
+                                <th class="column-title">No cumple: 1</th>
+                                <th class="column-title">Medianamente cumple: 2</th>
+                                <th class="column-title">Usualmente cumple: 3</th>
+                                <th class="column-title">Si cumple: 4</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table id="preguntas" class="table table-bordered rwd_auto">
+                        <tbody>
+                            <colgroup span="1"></colgroup>
+                            <tr class="table-active">
+                                <th class="aling-text" rowspan="2">
+                                    <h3>INDICADORES</h3>
+                                </th>
+                                <th class="aling-text" colspan="4">OPCIONES</th>
+                            </tr>
+                            <tr class="table-info">
+                                <th>1</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                            </tr>
+                            {% block questions %}
+
+                            {% endblock %}
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="type" value="{{ type }}">
+                    <input type="hidden" name="user" value="{{ user.id }}" />
+                    <input type="hidden" name="cycle"  value="{{ cycle.id }}" />
+                    <input type="hidden" name="dashboard"  value="{% url 'dashboard' %}" />
+                    <table class="table table-bordered rwd_auto">
+                        <tr>
+                            <td colspan="8">
+                                <div class="boton-eva" style="text-align: right">
+                                    {% block btn_evaluation %}
+
+                                    {% endblock %}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>Ya has realizado la autoevaluación</h3>
+            </div>
+        </div>
+    {% endif %}
+{% else %}
+    <div class="x_panel">
+        <div class="x_title">
+            <h3>Prueba no disponible</h3>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock %}
+{% block javascript %}
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'libs/sweetalert2/sweetalert2.all.min.js' %}"></script>
+        <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+        <script src="{% static 'js/app.js' %}"></script>
+        <!-- EVA -->
+        <script src="{% static 'eva/js/eva.js' %}"></script>
+{% endblock %}

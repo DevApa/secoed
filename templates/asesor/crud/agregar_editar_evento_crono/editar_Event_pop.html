@@ -1,0 +1,27 @@
+{% load widget_tweaks %}
+{% load static %}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="close">Edición: {{N}}</h2>
+            <h2 class="close">Nombre: {{h}}</h2>            
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>     
+        </div>
+        <form class='form_crono' action="{% url 'modi_Event' id user %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="col-12 col-md-9 offset-md-3">          
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Cronograma: </label><div class="col-md-5">{% render_field form.user class="form-control" type="text" %}</div></div>                    
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Evento: </label><div class="col-md-5">{% render_field form.title class="form-control" type="text" %}</div></div>                    
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Descripción: </label><div class="col-md-5">{% render_field form.description class="form-control" type="text" %}</div></div>                    
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Tiempo de Inicio: </label><div class="col-md-5">{% render_field form.start_time class="form-control" type="datetime-local" %}</div></div>
+                    <div class="mb-3 row"><label class="col-md-2 col-form-label">Tiempo Fin: </label><div class="col-md-5">{% render_field form.end_time class="form-control" type="datetime-local" %}</div></div>                                                    
+                </div>               
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>        
+                <button class="btn btn-primary" type="submit">Confirmar</button>
+            </div>
+        </form>                     
+    </div>
+</div>

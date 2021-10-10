@@ -1,0 +1,54 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+    {% include 'partials/css.html' %}
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'evaluations/libs/datatables/datatables.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/eva.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block contents %}
+<div class="row">
+    {% for cours in courses %}
+        <div class="col-lg-4">
+            <div class="card-course">
+                <div class="card-header bg-transparent border-bottom text-uppercase" style="text-align: center">
+                    {{ cours.fullName }}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title mt-0">{{ cours.shortName }}</h4>
+                    <div class="imagen" style="text-align: center">
+                        <img  style="width: 90px; height:90px" src="{% static cours.image %}" alt="Pedagógica">
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top text-muted" style="text-align: center">
+                    {{ cours.categoryName }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block r_sidebar %}
+    {% include 'partials/rightsidebar.html' %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'partials/footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'libs/sweetalert2/sweetalert2.all.min.js' %}"></script>
+        <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+        <script src="{% static 'js/app.js' %}"></script>
+{% endblock %}

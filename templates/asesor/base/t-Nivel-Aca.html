@@ -1,0 +1,119 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+{% endblock %}
+{% block contents %}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">        
+                                        <h4 class="card-title">Tabla Nivel Académico</h4>                                        
+                                        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="{% url 'buscar_N_Ac' %}" method="GET">    
+                                            <div class="input-group">
+                                                <input name="prd" class="form-control" type="text" placeholder="Buscar" aria-label="Search" aria-describedby="basic-addon2" />     
+                                                <select name="opcion">
+                                                    <option>Id</option>                                
+                                                    <option>Nivel</option>                                
+                                                    <option>Detalle</option>    
+                                                </select>                                        
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>                                                    
+                                                    <button type="button" onclick="abrir_Uni_crea('{% url 'agregar_producto_N_Ac' %}')" class="btn btn-secondary"><i class="fas fa-folder-plus"></i></button>
+                                                </div> 
+                                            </div>                                        
+                                        </form>                                             
+                                        <div class="table-responsive">
+                                            <table class="table table-editable table-nowrap align-middle table-edits">                                                
+                                                <thead>
+                                                    <tr>                                                       
+                                                        <th>Id</th>
+                                                        <th>Nivel</th>
+                                                        <th>Detalle</th>     
+                                                        <th>Opciones</th>  
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% if uni_nombre %}
+                                                    {% for uni_nombres in uni_nombre %}                            
+                                                        <tr>                                   
+                                                            <td>{{uni_nombres.id_academico}}</td>                                        
+                                                            <td>{{uni_nombres.Nivel}}</td>                                        
+                                                            <td>{{uni_nombres.Detalle}}</td>                                           
+                                                            <td><button onclick="abrir_Uni_edi('{% url 'modificar_producto_N_Ac' uni_nombres.id_academico %}')" class="btn btn-info btn-sm">Modificar</button>&nbsp;                                                                                        
+                                                                <button onclick="abrir_Uni_edi('{% url 'eliminar_producto_N_Ac' uni_nombres.id_academico %}')" class="btn btn-danger btn-sm">Eliminar</button></td> 
+                                                        </tr>     
+                                                    {% endfor %}
+                                                {% else %}                           
+
+                                                    <div class="row">
+                                                        <div class="alert alert-warning alert-dismissible fade show col-md-5 col-md-offset-4" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            <strong>Advertencia!</strong> Búsqueda Fallida, dato no encontrado.
+                                                        </div>
+                                                    </div> 
+                                                    
+                                                {% endif %}
+                                                {% if messages %}
+                                                    <ul class="messages">
+                                                        {% for message in messages %}
+                                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                                        {% endfor %}
+                                                    </ul>    
+                                                {% endif %}
+                                                </tbody>
+                                                </table>
+                                        </div>
+        
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->
+
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->             
+<div class="modal fade" id="edicion" role="dialog"></div>
+<div class="modal fade" id="creacion" role="dialog"></div>
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+
+{% endblock %}
+{% block javascript %}                
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>        
+        <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>    
+
+         <!-- Table Editable plugin -->
+        <script src="{% static 'libs/table-edits/build/table-edits.min.js' %}"></script>
+
+        <script src="{% static 'js/pages/table-editable.int.js' %}"></script>         
+
+        <script src="{% static 'js/app.js' %}"></script>
+
+        <script type="text/javascript">
+            var $ = jQuery.noConflict();
+            function abrir_Uni_edi(url){
+                $('#edicion').load(url, function (){
+                    $(this).modal('show')
+                });
+            }
+            function abrir_Uni_crea(url){
+                $('#creacion').load(url, function (){
+                    $(this).modal('show')
+                });
+            }
+        </script>
+        
+{% endblock %}

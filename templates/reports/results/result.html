@@ -1,0 +1,286 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+    {% include 'partials/css.html' %}
+{% endblock %}
+
+{% block extra_css %}
+        <link href="{% static 'libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'libs/admin-resources/rwd-table/rwd-table.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block contents %}
+
+<div class="row">
+{% if auto.Total_Proceso_Auto > 0 %}
+    <div class="col-6">
+        <div id="auto"></div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-pills nav-justified" role="tablist">
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#tics" role="tab" aria-selected="true">
+                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                            <span class="d-none d-sm-block">TICS</span>
+                        </a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link" data-bs-toggle="tab" href="#did" role="tab" aria-selected="false">
+                            <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                            <span class="d-none d-sm-block">Didactica</span>
+                        </a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link" data-bs-toggle="tab" href="#ped" role="tab" aria-selected="false">
+                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                            <span class="d-none d-sm-block">Pedagogia</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content p-3 text-muted">
+                    <div class="tab-pane active" id="tics" role="tabpanel">
+                        <div id="semaforo">
+                            <div class="card">
+                                <div class="card-header bg-transparent border-bottom" style="text-align: center">
+                                    <h4>Usted se encuentra en semáforo</h4>
+                                </div>
+                                <div class="card-body" style="text-align: center">
+                                    <img src="{% static semaforo_atic %}" alt="" style="width: 85%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="did" role="tabpanel">
+                        <div id="semaforo">
+                            <div class="card">
+                                <div class="card-header bg-transparent border-bottom" style="text-align: center">
+                                    <h4>Usted se encuentra en semáforo</h4>
+                                </div>
+                                <div class="card-body" style="text-align: center;">
+                                    <img src="{% static semaforo_adid %}" alt="" style="width: 85%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="ped" role="tabpanel">
+                       <div id="semaforo">
+                            <div class="card">
+                                <div class="card-header bg-transparent border-bottom" style="text-align: center">
+                                    <h4>Usted se encuentra en semáforo</h4>
+                                </div>
+                                <div class="card-body" style="text-align: center;">
+                                    <img src="{% static semaforo_aped %}" alt="" style="width: 85%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+    </div>
+{% else %}
+
+    <div class="col-6" style=" display: none">
+        <div id="auto"></div>
+    </div>
+
+    <div class="col-6">
+        <div id="semaforo">
+            <div class="card">
+                <div class="card-header bg-transparent border-bottom" style="text-align: center">
+                    <h4>Usted no ha realizado su autoevaluación</h4>
+                </div>
+                <div class="card-body" style="margin: 2em auto">
+                    <p>
+                        Cuando realice su autoevaluación podrá obtener un informe de este proceso
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+</div>
+
+<div class="row">
+{% if auto.Total_Proceso_Coe > 0 %}
+    <div class="col-6">
+        <div id="coe"></div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-pills nav-justified" role="tablist">
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#c_tics" role="tab" aria-selected="true">
+                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                            <span class="d-none d-sm-block">TICS</span>
+                        </a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link" data-bs-toggle="tab" href="#c_did" role="tab" aria-selected="false">
+                            <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                            <span class="d-none d-sm-block">Didactica</span>
+                        </a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link" data-bs-toggle="tab" href="#c_ped" role="tab" aria-selected="false">
+                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                            <span class="d-none d-sm-block">Pedagogia</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content p-3 text-muted">
+                    <div class="tab-pane active" id="c_tics" role="tabpanel">
+                        <div id="semaforo">
+                            <div class="card">
+                                <div class="card-header bg-transparent border-bottom" style="text-align: center">
+                                    <h4>Usted se encuentra en semáforo</h4>
+                                </div>
+                                <div class="card-body" style="text-align: center;">
+                                    <img src="{% static semaforo_ctic %}" alt="" style="width: 85%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="c_did" role="tabpanel">
+                        <div id="semaforo">
+                            <div class="card">
+                                <div class="card-header bg-transparent border-bottom" style="text-align: center">
+                                    <h4>Usted se encuentra en semáforo</h4>
+                                </div>
+                                <div class="card-body" style="text-align: center;">
+                                    <img src="{% static semaforo_cdid %}" alt="" style="width: 85%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="c_ped" role="tabpanel">
+                       <div id="semaforo">
+                            <div class="card">
+                                <div class="card-header bg-transparent border-bottom" style="text-align: center">
+                                    <h4>Usted se encuentra en semáforo</h4>
+                                </div>
+                                <div class="card-body" style="text-align: center;">
+                                    <img src="{% static semaforo_cped %}" alt="" style="width: 85%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="col-6">
+        <div id="semaforo">
+            <div class="card">
+                <div class="card-header bg-transparent border-bottom" style="text-align: center">
+                    <h4>Usted no ha sido coevaluado</h4>
+                </div>
+                <div class="card-body" style="margin: 2em auto">
+                    <p>
+                        Cuando sea evaluado podrá obtener un informe de este proceso
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/sweetalert2/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <!--Local js-->
+
+    <script src="{% static 'evaluations/libs/highcharts-8.1.2/highcharts.js' %}"></script>
+    <script src="{% static 'evaluations/libs/highcharts-8.1.2/highcharts-3d.js' %}"></script>
+    <script src="{% static 'evaluations/libs/highcharts-8.1.2/modules/exporting.js' %}"></script>
+    <script src="{% static 'evaluations/libs/highcharts-8.1.2/modules/export-data.js' %}"></script>
+    <script src="{% static 'evaluations/libs/highcharts-8.1.2/modules/accessibility.js' %}"></script>
+    <script src="{% static 'evaluations/notifications.js' %}"></script>
+    <script type="text/javascript">
+
+    $(function (){
+        graph_auto_evaluation_by_category({{ total_auto }}, {{ graph_evaluation|safe }});
+        graph_co_evaluation_by_category({{ total_coe }}, {{ graph_co_evaluation|safe }});
+    });
+
+    function graph_auto_evaluation_by_category(subtitle, series) {
+        Highcharts.chart('auto', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
+            },
+            title: {
+                text: 'La nota global de autoevaluación es de:'
+            },
+            subtitle: {
+                text: subtitle + '/100'
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 100,
+                    depth: 45
+                }
+            },
+            series: [{
+                name: 'Rendimiento por área',
+                data: series
+            }]
+        });
+    }
+
+    function graph_co_evaluation_by_category(subtitle, series) {
+        Highcharts.chart('coe', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
+            },
+            title: {
+                text: 'La nota global de co evaluación es de:'
+            },
+            subtitle: {
+                text: subtitle + '/100'
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 100,
+                    depth: 45
+                }
+            },
+            series: [{
+                name: 'Rendimiento por área',
+                data: series
+            }]
+        });
+    }
+
+    </script>
+{% endblock %}

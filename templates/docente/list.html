@@ -1,0 +1,19 @@
+{% extends 'parciales/list.html' %}
+{%block icono %} fas fa-plus {% endblock %}
+{% block cols %}
+    <th>N°</th>
+    <th>Nombre</th>
+    <th>Identificación</th>
+    <th>Correo</th>
+{% endblock %}
+
+{% block filas %}
+    {% for item in object_list %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.nombres }} {{ item.apellidos }}</td>
+            <td>{{ item.identificacion }}</td>
+            <td>{{ item.email }}</td>
+        </tr>
+    {% endfor %}
+ {% endblock %}

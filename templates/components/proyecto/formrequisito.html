@@ -1,0 +1,51 @@
+{% load crispy_forms_tags %}
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                {% if modulo.id %}
+                    Menú: {{ menu.descripcion }}
+                {% else %}
+                    Registrar Criterio
+                {% endif %}
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"/>
+        </div>
+        <form method="POST" id="menuForm" data-menu-url="{% url 'loadRequisito' %}"
+              action="{% if menu.id %} updateRequisito/{{ menu.id }}{% else %}newRequisito{% endif %}">
+            {% csrf_token %}
+            <div class="modal-body">
+                {{ menuFormView|crispy }}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" {% if view %}disabled{% endif %}>
+                    <i class="mdi mdi-content-save"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <i class="mdi mdi-close"></i>
+                    Cerrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    var $ = jQuery.noConflict();
+
+    $("#id_modulo_id").change(function () {
+        const url = $("#menuForm").attr("data-menu-url");
+        const moduloId = $(this).val();
+        $.ajax({
+            url: url,
+            data: {
+                'modulo_id': moduloId
+            },
+            success: function (data) {
+                $("#id_parent_id").html(data);
+            },
+        });
+
+    });
+</script>

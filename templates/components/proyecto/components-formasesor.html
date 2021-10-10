@@ -1,0 +1,135 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+
+{% endblock %}
+{% block contents %}
+
+<div class="row">
+
+
+</div>
+
+<div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- <h4 class="card-title">Table Edits</h4>
+                    <p class="card-title-desc">Table Edits is a lightweight jQuery plugin for making table rows editable.</p> -->
+
+                    <div class="table-responsive">
+                        <table class="table table-primary dt-responsive table-nowrap align-middle"
+                        style="text-align: center" id = "datatable" >
+                        <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Curso</th>
+                                    <th>Asesor</th>
+                                    <th>Quitar Asignaciòn</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tb">
+                                {% for asesor in cursos %}
+                                <tr>
+                                    <th>{{asesor.id}}</th>
+                                    <th>{{asesor.curso}}</th>
+                                    <th>{{asesor.asesor}}</th> 
+                                    <th>
+                                        <div class="btn-group mt-4 mt-md-0" role="group" aria-label="Basic example">
+                                            <button type="submit" onclick="deleteAsignacion({{ asesor.id }})"
+                                                    class="btn btn-danger waves-effect waves-light">
+                                                <i class="mdi mdi-trash-can"></i>
+                                            </button>
+                                        </div>
+                                    </th>
+
+                                </tr>                                  
+                                {% endfor %}
+
+                                    
+
+                            </tbody>
+                            </table>
+                    </div>
+
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
+
+</div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+</div>
+
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock %}
+{% block javascript %}
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+        <!--tinymce js-->
+        <script src="{% static 'libs/tinymce/tinymce.min.js' %}"></script>
+
+        <!-- init js -->
+        <script src="{% static 'js/pages/form-editor.init.js' %}"></script>
+
+        <script src="{% static 'js/app.js' %}"></script>
+        <script src="{% static 'js/education/first.js' %}"></script>
+
+        <!--SWEET-ALERT -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+                <!-- message success-->
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                    "title": "ASESOR SE ELIMINÒ DEL CURSO",
+                    "text": "{{m}}",
+                    "icon": "{{m.extra_tags}}",
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
+                <!-- delete -->
+        <script>
+            function deleteAsignacion(id) {
+                Swal.fire({
+                    "title": "¿Esta seguro?",
+                    "text": "Esta acción no se puede revertir",
+                    "icon": "question",
+                    "showCancelButton": true,
+                    "cancelButtonText": "NO",
+                    "confirmButtonText": "SI",
+                    "cancelButtonColor": "#f46a6a",
+                    "confirmButtonColor": "#34c38f",
+                })
+                    .then(function (result) {
+                        if (result.isConfirmed) {
+                            console.log(id)
+                            window.location.href = "deleteAsignacion/" + id
+                        }
+                    })
+            }
+        </script>
+{% endblock %}
+

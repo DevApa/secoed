@@ -1,0 +1,50 @@
+{% load static %}
+{% block sidebar %}
+    <div class="vertical-menu">
+        <div data-simplebar class="h-100">
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+                <ul class="metismenu list-unstyled" id="side-menu">
+                    <li class="menu-title" key="t-menu">Menu</li>
+                    <!--- modulos -->
+                    {% for mod in modulo %}
+                        <li>
+                            <a class="{% if mod.menus %}has-arrow waves-effect{% endif %}">
+                                <i class="{{ mod.icon }}"></i>
+                                <span key="{{ mod.key }}">{{ mod.descripcion }}</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <!--- menu nivel 1 -->
+                                {% for n1 in mod.menus %}
+                                    <li>
+                                        <a class="{% if n1.items %}has-arrow waves-effect{% endif %}"
+                                                {% if n1.url %} href="{% url n1.url %}" {% endif %}>
+                                            <i class="{{ n1.icon }}"></i>
+                                            <span key="{{ n1.key }}">{{ n1.descripcion }}</span>
+                                        </a>
+                                        <ul class="sub-menu" aria-expanded="false">
+                                            <!--- menu nivel 2 -->
+                                            {% for n2 in n1.items %}
+                                                <li>
+                                                    <a class="waves-effect"
+                                                            {% if n2.url %} href="{% url n2.url %}" {% endif %}>
+                                                        <i class="{{ n2.icon }}"></i>
+                                                        <span key="{{ n2.key }}">{{ n2.descripcion }}</span>
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                            <!--- menu nivel 2 end -->
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                                <!--- menu nivel 1 end -->
+                            </ul>
+                        </li>
+                    {% endfor %}
+                    <!--- modulos end -->
+                </ul>
+            </div>
+            <!-- Sidebar End-->
+        </div>
+    </div>
+{% endblock %}

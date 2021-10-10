@@ -1,0 +1,186 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block css %}
+    {% include 'partials/css.html' %}
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+
+{% block contents %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="button-items" style="margin-bottom: 10px">
+                        <button type="button"
+                                onclick="openModal('{% url 'newUsuario' %}','#newModal')"
+                                class="btn btn-success waves-effect waves-light btn-rounded"
+                                data-bs-toggle="modal">
+                            <i class="mdi mdi-plus-circle font-size-16 align-middle me-2"></i>
+                            NUEVO USUARIO
+                        </button>
+                    </div>
+
+                    <table id="datatable" class="table table-primary table-responsive table-nowrap align-middle"
+                           style="text-align: center">
+                        <thead class="table-light">
+                        <tr>
+                            <th>IDENTIFICACIÓN</th>
+                            <th>APELLIDOS</th>
+                            <th>NOMBRES</th>
+                            <th>TELÉFONO</th>
+                            <th>EMAIL</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in usuarioview %}
+                            <tr>
+                                <td>{{ user.identificacion }}</td>
+                                <td>{{ user.apellidos }}</td>
+                                <td>{{ user.nombres }}</td>
+                                <td>{{ user.telefono }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    <div class="btn-group mt-4 mt-md-0" role="group" aria-label="Basic example">
+                                        <button type="button"
+                                                onclick="openModal('{% url 'viewUsuario' user.id %}','#viewModal')"
+                                                class="btn btn-primary waves-effect waves-light"
+                                                data-bs-toggle="modal">
+                                            <i class="mdi mdi-eye"></i>
+                                        </button>
+                                        <button type="button"
+                                                onclick="openModal('{% url 'editUsuario' user.id %}','#editModal')"
+                                                class="btn btn-success waves-effect waves-light">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </button>
+                                        <button type="submit" onclick="deleteUsuario({{ user.id }})"
+                                                class="btn btn-danger waves-effect waves-light">
+                                            <i class="mdi mdi-trash-can"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- newModal-->
+    <div class="modal fade" id="newModal" role="dialog">
+    </div>
+    <!-- endNewModal -->
+
+    <!-- viewModal -->
+    <div class="modal fade" id="viewModal" role="dialog">
+    </div>
+    <!-- endViewModal -->
+
+    <!-- editModal -->
+    <div class="modal fade" id="editModal" role="dialog">
+    </div>
+    <!-- endEditModal -->
+
+{% endblock %}
+
+{% block r_sidebar %}
+    {% include 'partials/rightsidebar.html' %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'partials/footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+    <!-- Required datatable js -->
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+    <!--SWEET-ALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Datatable init js -->
+    <script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <!-- Modal View -->
+    <script type="text/javascript">
+        var $ = jQuery.noConflict();
+
+        function openModal(url, idModal) {
+            $(idModal).load(url, function () {
+                $(this).modal('show')
+            });
+        }
+
+    </script>
+
+    <!-- message success-->
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                    "title": "USUARIO",
+                    "text": "{{m}}",
+                    "icon": "{{m.extra_tags}}",
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
+    <!-- delete -->
+    <script>
+        function validaNumericos(event) {
+            if (event.charCode >= 48 && event.charCode <= 57) {
+                return true;
+            }
+            return false;
+        }
+
+        function deleteUsuario(id) {
+            Swal.fire({
+                "title": "¿Esta seguro?",
+                "text": "Esta acción no se puede revertir",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "NO",
+                "confirmButtonText": "SI",
+                "cancelButtonColor": "#f46a6a",
+                "confirmButtonColor": "#34c38f",
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        console.log(id)
+                        window.location.href = "deleteUsuario/" + id
+                    }
+                })
+        }
+    </script>
+
+{% endblock %}

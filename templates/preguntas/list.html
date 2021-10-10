@@ -1,0 +1,33 @@
+{% extends 'parciales/list.html' %}
+
+{% block btn_creacion %}
+<div class="mb-2">
+    <button class="rounded-circle btn btn-outline-info" new-register type="button" onclick="openModal('{% url 'eva:create-questions' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
+        <i class="fas fa-user-plus"></i>
+    </button>
+</div>
+{% endblock %}
+
+{% block cols %}
+    <th>N°</th>
+    <th style="width: 50px;">Título</th>
+    <th>Acción</th>
+{% endblock %}
+
+{% block filas %}
+    {% for item in object_list %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td style="width: 50px;">{{ item.title }}</td>
+            <td>
+                <button onclick="openModal('{% url 'eva:update-questions' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button onclick="confirmDelete('{% url 'eva:delete-questions' item.pk %}')" class="rounded-circle btn btn-outline-danger btn-sm trash" title="Borrar">
+                    <i class="fas fa-trash"></i>
+                </button>
+                {% csrf_token %}
+            </td>
+        </tr>
+    {% endfor %}
+ {% endblock %}

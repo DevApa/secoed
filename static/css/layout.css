@@ -1,0 +1,41 @@
+/* .repeater{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+.my-form__question{
+    padding: 1.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.my-form__question > .label-question {
+    flex: 1 0 100%;
+}
+.my-form__question > .input-question {
+    flex: 1 0 50%;
+  }
+  
+.my-form__question > .button-question {
+    flex: 0 1 20%;
+}
+
+.my-form__choice{
+    padding: 1rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 10rem;
+    gap:5px;
+}
+.add_button{
+    display: block;
+    margin: 0.5rem calc(2rem + 5px);
+}
+.submit_button{
+    display: block;
+    margin-top: 0.5rem;
+    margin: auto;
+}
+
+
+/* Historial moment */

@@ -1,0 +1,96 @@
+{% extends 'parciales/form_snippets.html' %}
+{% block action %}{% url 'eva:create-auto-evaluation' %}{% endblock %}
+{% block form %}
+    {% if ciclo.ciclo_activo %}
+    {% if comprobacion == False %}
+        <div class="">
+            <header class="title">
+                <div class="col-title">
+                    <h1>
+                        <center> COEVALUACION DOCENTE</center>
+                    </h1>
+                    <h4>
+                        <center>Ciclo: {{ ciclo }} </center>
+                    </h4>
+                </div>
+            </header>
+            <body>
+                <form id="a" action="/crearEvaluacion/" class="form-label-left input_mask" method="POST">
+                    {% csrf_token %}
+                    <section class="intro first">
+                        <p>Buenos días,</p>
+                        <p>Por favor, dedique unos minutos de su tiempo para rellenar el siguiente cuestionario.</p>
+                    </section>
+                    <section class="intro first">
+                        <H2>
+                            <center> Tabla de Valoración</center>
+                        </H2>
+                    </section>
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings table-success">
+                                <th class="column-title">No cumple: 1</th>
+                                <th class="column-title">Medianamente cumple: 2</th>
+                                <th class="column-title">Usualmente cumple: 3</th>
+                                <th class="column-title">Si cumple: 4</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table class="table table-bordered rwd_auto">
+                        <tbody>
+                            <colgroup span="1"></colgroup>
+                            <tr class="table-active">
+                                <th class="aling-text" rowspan="2">
+                                    <h3>INDICADORES</h3>
+                                </th>
+                                <th class="aling-text" colspan="4">OPCIONES</th>
+                            </tr>
+                            <tr class="table-info">
+                                <th>1</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                            </tr>
+                            {% for categoria in categorias %}
+                                <tr class="table-primary">
+                                    <td><h5><center>{{ categoria.name|upper }}</center></h5></td>
+                                </tr>
+                                {% for pregunta in preguntas %}
+                                    {% ifequal pregunta.category_id categoria.id %}
+                                        <tr>
+                                            <td max-width: 100% >{{ pregunta.title }}</td>
+                                            {% for val in valPreg %}
+                                                <td><input id="{{ pregunta.id }}" type="radio" class="hidden-inputs" name="{{ pregunta.id }}" value="{{ val.value }}" required /></td>
+                                            {% endfor %}
+                                        </tr>
+                                       {% endifequal %}
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="user_id" id="user_id" value="{{ user.id }}" />
+                    <table class="table table-bordered rwd_auto">
+                        <tr>
+                            <td colspan="8">
+                                <input type="submit" class="btn btn-success mt-3 mt-lg-0 input-aling-right" value="Guardar">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </body>
+        </div>
+    {% else %}
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>Ya has realizado la autoevaluación</h3>
+            </div>
+        </div>
+    {% endif %}
+{% else %}
+    <div class="x_panel">
+        <div class="x_title">
+            <h3>Prueba no disponible</h3>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

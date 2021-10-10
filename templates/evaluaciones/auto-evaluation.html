@@ -1,0 +1,49 @@
+{% extends 'parciales/evaluacion.html' %}
+{% load static %}
+
+{% block id_error %}error_evaluate{% endblock %}
+{% block action %}{% url 'eva:create-auto-evaluation' %}{% endblock %}
+
+{% block questions %}
+    {% for category in categories %}
+        <tr class="table-primary">
+            <td style="text-align: center"><h5>{{ category.name|upper }}</h5></td>
+        </tr>
+        {% for question in object_list %}
+            <input type="hidden" name="type_evaluation" value="{{ question.type }}">
+            {% ifequal question.category_id category.id %}
+                <tr class="parent">
+                    <td>
+                        <input type="hidden" name="pregunta" value="{{ question.id }}">
+                        <input type="hidden" name="category" value="{{ category.id }}">
+                        {{ question.title }}
+                    </td>
+                    {% for val in parameters %}
+                        <td>
+                            <input class="valor" type="radio" name="parametro-{{ question.id }}" value="{{ val.id }}"
+                                   required/>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endifequal %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+{% block btn_evaluation %}
+    <button type="submit" id="btnGuardar" class="btn btn-success mt-3 mt-lg-0 input-aling-right">
+        Guardar
+    </button>
+{% endblock %}
+{% block javascript %}
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/sweetalert2/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <!-- EVA -->
+    <script src="{% static 'evaluations/evaluacion.js' %}"></script>
+    <script src="{% static 'evaluations/notifications.js' %}"></script>
+{% endblock %}

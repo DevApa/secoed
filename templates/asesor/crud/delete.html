@@ -1,0 +1,21 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="close"><i class="fas fa-exclamation-triangle"></i> ¿Está seguro de eliminar la Entrada?</h2>                                   
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                        
+        </div>
+        <form class='form_crono' action="{% url r a %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="col-12 col-md-6 offset-md-3"><h5>Se perderán los datos Almacenados!</h4>
+                </div>               
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>        
+                <button class="btn btn-primary" type="submit">Confirmar</button>
+            </div>
+        </form>                     
+    </div>
+</div>

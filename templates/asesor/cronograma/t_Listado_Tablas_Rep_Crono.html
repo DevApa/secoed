@@ -1,0 +1,73 @@
+{% extends "Encabezado_Pie/Padre_Inter.html" %}
+
+{% block content %} 
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid">
+            <h1 class="mt-4">Tabla Reportes Cronograma</h1>
+            <hr>     
+            <div class="row">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="/buscar_Reporte_Crono/" method="GET">    
+                            <div class="input-group">
+                                <input name="prd" class="form-control" type="text" placeholder="Buscar" aria-label="Search" aria-describedby="basic-addon2" />                            
+                                <select name="opcion">
+                                    <option>Id</option>           
+                                    <th>Relación del Curso y Asesor</th>                     
+                                    <option>Relación del Curso y Asesor</option>
+                                    <option>Nombre De la Cabecera del Cronograma</option>
+                                </select> 
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>                                    
+                                </div> 
+                            </div>                                                                                                                    
+                            </form>
+                        </form>       
+                            <br>                                                                    
+                            <br>   
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Relación del Curso y Asesor</th>
+                                    <th>Nombre De la Cabecera del Cronograma</th>
+                                    <th>Descargar Resumen</th>
+                                    <th>Opción</th>                                    
+                                </tr>
+                            </thead>                           
+                            <tbody>
+                            {% if uni_nombre %}
+                                {% for uni_nombres in uni_nombre %}                            
+                                    <tr>                                   
+                                        <td>{{uni_nombres.Id_Cabecera_Crono}}</td>                                        
+                                        <td>{{uni_nombres.Relación}}</td>
+                                        <td>{{uni_nombres.Nombre}}</td>                                                                              
+                                        <td><a href="{% url 'llamar_crono' uni_nombres.Nombre %}" class="btn btn-info btn-sm">Reporte del Curso</a></td>
+                                        <td><a href="{% url 'pdf_download' uni_nombres.Nombre %}" class="btn btn-info btn-sm">Descargar Pdf</a></td>
+                                    </tr>     
+                                {% endfor %}
+                            {% else %}                           
+
+                                <div class="row"></div>
+                                    <div class="alert alert-warning alert-dismissible fade show col-md-5 col-md-offset-4" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <strong>Advertencia!</strong> Búsqueda Fallida, dato no encontrado.
+                                    </div>
+                                </div> 
+                            
+                            {% endif %}
+
+                            </tbody>
+                        </table>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% include "Encabezado_Pie/Pie.html" %}
+</div>
+{% endblock %}

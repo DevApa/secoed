@@ -1,0 +1,39 @@
+{% extends 'parciales/list.html' %}
+<!--Botón e icono crear-->
+{% block btn_creacion %}
+    <div class="mb-2">
+        <button class="rounded-circle btn btn-outline-info" new-register type="button" onclick="openModal('{% url 'eva:create-category' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+{% endblock %}
+<!--Columnas de la tabla-->
+{% block cols %}
+    <th>N°</th>
+    <th>Nombre</th>
+    <th>Estado</th>
+    <th>Acción</th>
+{% endblock %}
+<!--Filas de la tabla-->
+{% block filas %}
+    {% for item in object_list %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>
+                {% if item.state %}
+                    <span class="badge rounded-pill bg-success" key="t-new">Activo</span>
+                {% endif %}
+            </td>
+            <td>
+                <button onclick="openModal('{% url 'eva:update-category' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button onclick="confirmDelete('{% url 'eva:delete-category' item.pk %}')" class="rounded-circle btn btn-outline-danger btn-sm trash" title="Borrar">
+                    <i class="fas fa-trash"></i>
+                </button>
+                {% csrf_token %}
+            </td>
+        </tr>
+    {% endfor %}
+ {% endblock %}

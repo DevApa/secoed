@@ -1,0 +1,32 @@
+{% load crispy_forms_tags %}
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                {% if modulo.id %}
+                    Módulo: {{ modulo.descripcion }}
+                {% else %}
+                    Crear Moduló
+                {% endif %}
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"/>
+        </div>
+        <form method="POST" id="form"
+              action="{% if modulo.id %} editModulo/{{ modulo.id }}{% else %}newModulo{% endif %}">
+            {% csrf_token %}
+            <div class="modal-body">
+                {{ moduloFormView|crispy }}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" {% if view %}disabled{% endif %}>
+                    <i class="mdi mdi-content-save"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <i class="mdi mdi-close"></i>
+                    Cerrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

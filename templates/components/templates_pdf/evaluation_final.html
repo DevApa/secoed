@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Final Evaluation</title>
+</head>
+<body>
+    <h1>Final Evaluation</h1>
+    <h2>Subject: {{course}} <h2>
+    {%for question in questions %}
+        <section>
+            <h4>Question: {{question.question}}</h4>
+            <ol>
+                {%for choice in question.choices%}            
+                <li><p>{{choice.description}}</p></li>
+                {%endfor%}
+            </ol>
+        </section>
+    {%endfor%}
+
+</body>
+</html>

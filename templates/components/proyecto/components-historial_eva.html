@@ -1,0 +1,61 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+
+{% endblock %}
+{% block contents %}
+{% if evaluations %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Course</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Ver PDF</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for evaluation in evaluations %}
+        <tr>
+            <th>{{evaluation.id}}</th>
+            <th>{{evaluation.course}}</th>
+            <th>{{evaluation.create_at}}</th>
+            <th><a href="{%url 'historialEvaluation' id=evaluation.id%}" class="btn btn-primary"><i class="fa fa-file-pdf-o"></i></a></th>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+{% else %}
+    <p>No hay Evaluaciones registradas :(</p>
+{% endif%}
+
+
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock %}
+{% block javascript %}
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+        <script src="{% static 'libs/sweetalert2/sweetalert2.all.min.js' %}"></script>
+        <!-- form repeater js -->
+        <script src="{% static 'libs/jquery.repeater/jquery.repeater.min.js' %}"></script>
+
+        <script src="{% static 'js/pages/form-repeater.int.js' %}"></script>
+
+        <script src="{% static 'js/app.js' %}"></script>
+        <script src="{% static 'js/evaluation/evaluation.js' %}"></script>
+        
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block css %}
+    {% include 'partials/css.html' %}
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block contents %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table id="datatable" class="table table-primary table-responsive table-nowrap align-middle dt-responsive nowrap w-100"
+                           style="text-align: center">
+                        <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>USUARIO</th>
+                            <th>ROL</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rolUser in rolesUsuarioView %}
+                            <tr>
+                                <td>{{ rolUser.id }}</td>
+                                <td>{{ rolUser.user.username }}</td>
+                                <td>{{ rolUser.rol.descripcion }}</td>
+                                <td>
+                                    <div class="btn-group mt-4 mt-md-0" role="group" aria-label="Basic example">
+                                        <button type="submit" onclick="deleteRolUsuario({{ rolUser.id }})"
+                                                class="btn btn-danger waves-effect waves-light">
+                                            <i class="mdi mdi-trash-can"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block r_sidebar %}
+    {% include 'partials/rightsidebar.html' %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'partials/footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+    <!-- Required datatable js -->
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+    <!--SWEET-ALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Datatable init js -->
+    <script src="{% static 'js/pages/datatables.init.js' %}"></script>
+
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <!-- message success-->
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                    "title": "ROL-USUARIO",
+                    "text": "{{m}}",
+                    "icon": "{{m.extra_tags}}",
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
+    <!-- delete -->
+    <script>
+        function deleteRolUsuario(id) {
+            Swal.fire({
+                "title": "¿Esta seguro?",
+                "text": "Esta acción no se puede revertir",
+                "icon": "question",
+                "showCancelButton": true,
+                "cancelButtonText": "NO",
+                "confirmButtonText": "SI",
+                "cancelButtonColor": "#f46a6a",
+                "confirmButtonColor": "#34c38f",
+            })
+                .then(function (result) {
+                    if (result.isConfirmed) {
+                        console.log(id)
+                        window.location.href = "deleteRolUsuario/" + id
+                    }
+                })
+        }
+    </script>
+
+{% endblock %}

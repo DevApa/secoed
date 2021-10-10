@@ -1,0 +1,161 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block css%}
+{% include 'partials/css.html' %}
+{% endblock %}
+{% block extra_css %}
+{% endblock %}
+{% block contents %}
+
+    <h3>SECCION DE REPORTE DE ESTADO DE LA PLATAFORMA</h3>
+
+    <style>
+            .counter{
+            font-size:25px;
+            font-weight:bold;
+            text-align:left;
+            padding-bottom: 20px;
+        }
+    </style>
+
+        <div onmouseover="contador()">
+            <h5>Usuarios Conectados</h5>
+        <div class="counter" data-target="246">0</div>
+        </div>
+
+        <script>
+                function contador() {
+                const counters = document.querySelectorAll('.counter');
+                const speed = 50;
+                counters.forEach(counter => {
+                const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const inc = target / speed;
+                if (count < target) {
+                counter.innerText = count + inc;
+                setTimeout(updateCount, 1);
+                } else {
+                counter.innerText = target;}};
+                updateCount();});}
+        </script>
+
+                       <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <script src="https://code.highcharts.com/highcharts.js"></script>
+                                        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+                                        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+                                        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+                                        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+                                        
+                                        <figure class="highcharts-figure">
+                                            <div id="container"></div>
+                                         
+                                        </figure>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                            <figure class="highcharts-figure">
+                                            <div id="container1"></div>
+                                           
+                                            </figure>
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+        
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <figure class="highcharts-figure">
+                                        <div id="container2"></div>
+                                      
+                                        </figure>
+
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <!-- end row -->
+        
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <figure class="highcharts-figure">
+                                            <div id="container3"></div>
+                                          
+                                            </figure>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end row -->
+        
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div id="container4"></div>
+                                          
+                                            </figure>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+{% endblock %}
+{% block r_sidebar %}
+{% include 'partials/rightsidebar.html' %}
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock %}
+{% block javascript %}
+
+        <!-- JAVASCRIPT -->
+        <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+        <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+        <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+        <!-- echarts js -->
+        <script src="{% static 'libs/echarts/echarts.min.js' %}"></script>
+        <!-- echarts init -->
+        <script src="{% static 'js/pages/echarts.init.js' %}"></script>
+        <script src="{% static 'js/pages/tiempo.js' %}"></script>
+        <script src="{% static 'js/pages/modutilizados.js' %}"></script>
+        <script src="{% static 'js/pages/actividadpagina.js' %}"></script>
+        <script src="{% static 'js/pages/satusuario.js' %}"></script>
+        <script src="{% static 'js/app.js' %}"></script>
+{% endblock %}
